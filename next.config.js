@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["w.wallhaven.cc"],
+    domains: ["i.imgur.com", "w.wallhaven.cc"],
   },
 };

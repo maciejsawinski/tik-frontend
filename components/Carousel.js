@@ -1,48 +1,71 @@
-import { useState } from "react";
-import Slider from "react-slick";
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useState, useEffect } from "react";
+import { Flex, SlideFade } from "@chakra-ui/react";
 
 import ImageSlide from "./ImageSlide";
+import AlertsSlide from "./AlertsSlide";
+import DestinationsSlide from "./DestinationsSlide";
 
-import styles from "../styles/Kiosk.module.css";
+const Carousel = ({ slides, alerts, destinations }) => {
+  const [activeItem, setActiveItem] = useState(0);
 
-const Carousel = ({ slides }) => {
-  const [slideInterval, setSlideInterval] = useState(slides[0].duration);
+  const changeActiveItem = () => {
+    const slidesLength = slides.length;
 
-  const beforeSlideChange = (_, newIndex) => {
-    setSlideInterval(slides[newIndex].duration);
+    if (activeItem === slidesLength - 1) {
+      setActiveItem(0);
+    } else {
+      setActiveItem(activeItem + 1);
+    }
   };
 
-  const settings = {
-    arrows: false,
-    dots: false,
-    draggable: false,
-    pauseOnHover: false,
-    swipe: false,
-    infinite: true,
-    fade: true,
-    autoplay: true,
-    autoplaySpeed: slideInterval,
-    beforeChange: beforeSlideChange,
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      changeActiveItem();
+    }, slides[activeItem].duration);
+
+    return () => clearInterval(interval);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeItem]);
+
+  // workoround for the bug in framer-motion
+  const isBrowser = typeof window !== "undefined";
+  if (!isBrowser) {
+    return null;
+  }
 
   return (
-    <Slider className={styles.container} {...settings}>
+    <div>
       {slides.map((slide, i) => {
+        let slideComponent;
         switch (slide.name) {
           case "img":
-            return <ImageSlide key={i} src={slide.src} />;
+            slideComponent = <ImageSlide src={slide.src} />;
+            break;
           case "alerts":
-            return <div key={i}>alerts</div>;
+            slideComponent = <AlertsSlide alerts={alerts} />;
+            break;
           case "destinations":
-            return <div key={i}>destinations</div>;
+            slideComponent = <DestinationsSlide destinations={destinations} />;
+            break;
           default:
-            return;
+            break;
         }
+        return (
+          <Flex
+            key={i}
+            height="100vh"
+            width="100vw"
+            pos="fixed"
+            zIndex={i === activeItem ? 1 : -1}
+          >
+            <SlideFade in={i === activeItem ? true : false} offsetY="50%">
+              {slideComponent}
+            </SlideFade>
+          </Flex>
+        );
       })}
-    </Slider>
+    </div>
   );
 };
 
