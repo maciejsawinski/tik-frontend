@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Flex, SlideFade } from "@chakra-ui/react";
 
-import ImageSlide from "./ImageSlide";
-import AlertsSlide from "./AlertsSlide";
-import DestinationsSlide from "./DestinationsSlide";
+import ImageSlide from "./slides/image/ImageSlide";
+import Alerts from "./slides/alerts/Alerts";
+import Destinations from "./slides/destinations/Destinations";
 
 const Carousel = ({ slides, alerts, destinations }) => {
   const [activeItem, setActiveItem] = useState(0);
@@ -43,10 +43,10 @@ const Carousel = ({ slides, alerts, destinations }) => {
             slideComponent = <ImageSlide src={slide.src} />;
             break;
           case "alerts":
-            slideComponent = <AlertsSlide alerts={alerts} />;
+            slideComponent = <Alerts alerts={alerts} />;
             break;
           case "destinations":
-            slideComponent = <DestinationsSlide destinations={destinations} />;
+            slideComponent = <Destinations destinations={destinations} />;
             break;
           default:
             break;

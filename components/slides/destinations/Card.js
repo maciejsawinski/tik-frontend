@@ -17,10 +17,10 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 
-import humanReadableTime from "../utils/humanReadableTime";
-import timeout from "../utils/timeout";
+import humanReadableTime from "../../../utils/humanReadableTime";
+import timeout from "../../../utils/timeout";
 
-const DestinationsBox = ({ destination }) => {
+const Card = ({ destination }) => {
   // logic for warning colors and icons
   let iconColor, backgroundColor, warningIcon;
   if (
@@ -134,7 +134,7 @@ const DestinationsBox = ({ destination }) => {
                 <Text>{activeDurationTextCar}</Text>
               </Fade>
             </HStack>
-            <HStack width="100%" fontSize="6xl" fontWeight="semibold" as="h2">
+            <HStack fontSize="6xl" fontWeight="semibold" as="h2">
               <Icon color={iconColor} as={FaTruck} />
               <Fade in={showDurationText}>
                 <Text>{activeDurationTextTruck}</Text>
@@ -147,4 +147,4 @@ const DestinationsBox = ({ destination }) => {
   );
 };
 
-export default DestinationsBox;
+export default Card;

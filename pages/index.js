@@ -32,15 +32,15 @@ export const getServerSideProps = async () => {
       props: {
         slides: [
           {
-            duration: 300000,
+            duration: 100000,
             name: "destinations",
           },
           {
-            duration: 1000,
+            duration: 5000,
             name: "alerts",
           },
           {
-            duration: 1000,
+            duration: 5000,
             name: "img",
             src: "https://w.wallhaven.cc/full/j3/wallhaven-j3rzl5.png",
           },
@@ -251,22 +251,22 @@ export const getServerSideProps = async () => {
         destinations: [
           {
             distance: 235,
-            duration: 8324,
-            durationInTraffic: 8109,
+            duration: 8331,
+            durationInTraffic: 8532,
             name: "Dresden (Drezno)",
             imgSrc: "https://i.imgur.com/qrhsncI.png",
           },
           {
             distance: 25,
-            duration: 1778,
-            durationInTraffic: 1678,
-            name: "ul. Świdnicka Wrocław ",
+            duration: 1777,
+            durationInTraffic: 2215,
+            name: "Wrocław ul. Świdnicka",
             imgSrc: "https://i.imgur.com/1KHr1Dw.png",
           },
           {
             distance: 602,
-            duration: 22112,
-            durationInTraffic: 21240,
+            duration: 22154,
+            durationInTraffic: 22455,
             name: "Львів (Lwów)",
             imgSrc: "https://i.imgur.com/Fs1H5VM.png",
           },
