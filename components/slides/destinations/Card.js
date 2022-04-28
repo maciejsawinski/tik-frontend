@@ -10,12 +10,6 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  FaCarSide,
-  FaTruck,
-  FaMapMarkerAlt,
-  FaExclamationCircle,
-} from "react-icons/fa";
 
 import humanReadableTime from "../../../utils/humanReadableTime";
 import timeout from "../../../utils/timeout";
@@ -28,14 +22,15 @@ const Card = ({ destination }) => {
     destination.duration + destination.duration * 0.15
   ) {
     warningIcon = (
-      <Icon
+      <Flex
         position="absolute"
         top={2}
         right={2}
-        fontSize="6xl"
+        fontSize="7xl"
         color="#ff0000"
-        as={FaExclamationCircle}
-      />
+      >
+        <span className="icon-warning"></span>
+      </Flex>
     );
     iconColor = "#ff0000";
     backgroundColor = "#ffcccc";
@@ -97,14 +92,9 @@ const Card = ({ destination }) => {
       shadow="dark-lg"
       position="relative"
     >
-      <Icon
-        position="absolute"
-        top={2}
-        left={0}
-        fontSize="6xl"
-        color="#8962FF"
-        as={FaMapMarkerAlt}
-      />
+      <Flex position="absolute" top={2} left={2} fontSize="7xl" color="#8962FF">
+        <span className="icon-map-point"></span>
+      </Flex>
       {warningIcon}
       <Box p="5">
         <Flex mt="4" mb="4" alignContent="center" flexDirection="column">
@@ -129,13 +119,17 @@ const Card = ({ destination }) => {
         <Flex mt="4" mb="4" alignContent="center" flexDirection="column">
           <Box>
             <HStack fontSize="6xl" fontWeight="semibold" as="h2">
-              <Icon color={iconColor} as={FaCarSide} />
+              <Flex color={iconColor} fontSize="7xl">
+                <span className="icon-car"></span>
+              </Flex>
               <Fade in={showDurationText}>
                 <Text>{activeDurationTextCar}</Text>
               </Fade>
             </HStack>
             <HStack fontSize="6xl" fontWeight="semibold" as="h2">
-              <Icon color={iconColor} as={FaTruck} />
+              <Flex color={iconColor} fontSize="7xl">
+                <span className="icon-truck"></span>
+              </Flex>
               <Fade in={showDurationText}>
                 <Text>{activeDurationTextTruck}</Text>
               </Fade>

@@ -56,7 +56,7 @@ const Carousel = ({ slides, alerts, destinations }) => {
             key={i}
             height="100vh"
             width="100vw"
-            pos="fixed"
+            position="fixed"
             zIndex={i === activeItem ? 1 : -1}
           >
             <SlideFade in={i === activeItem ? true : false} offsetY="50%">
