@@ -1,20 +1,16 @@
-import { useState, useEffect } from "react";
 import {
   Box,
   Center,
-  Fade,
   Flex,
   HStack,
-  Icon,
   Image,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 import humanReadableTime from "../../../utils/humanReadableTime";
-import timeout from "../../../utils/timeout";
 
-const Card = ({ destination }) => {
+const Card = ({ destination, lang }) => {
   // logic for warning colors and icons
   let iconColor, backgroundColor, warningIcon;
   if (
@@ -43,46 +39,22 @@ const Card = ({ destination }) => {
   }
 
   // texts
-  const durationTextCarPl = humanReadableTime(
-    destination.durationInTraffic,
-    "pl"
-  );
-  const durationTextCarEng = humanReadableTime(destination.durationInTraffic);
-  const durationTextTruckPl = humanReadableTime(
-    destination.durationInTraffic + destination.durationInTraffic / 2,
-    "pl"
-  );
-  const durationTextTruckEng = humanReadableTime(
-    destination.durationInTraffic + destination.durationInTraffic / 2
-  );
-
-  const [activeDurationTextCar, setActiveDurationTextCar] =
-    useState(durationTextCarPl);
-  const [activeDurationTextTruck, setActiveDurationTextTruck] =
-    useState(durationTextTruckPl);
-  const [showDurationText, setShowDurationText] = useState(true);
-
-  // logic for changing texts
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      setShowDurationText(false);
-      await timeout(500);
-
-      if (activeDurationTextCar === durationTextCarPl) {
-        setActiveDurationTextCar(durationTextCarEng);
-        setActiveDurationTextTruck(durationTextTruckEng);
-      } else {
-        setActiveDurationTextCar(durationTextCarPl);
-        setActiveDurationTextTruck(durationTextTruckPl);
-      }
-
-      setShowDurationText(true);
-    }, 5000);
-
-    return () => clearInterval(interval);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeDurationTextCar]);
+  let durationTextCar, durationTextTruck;
+  const truckDurationMultiplier = destination.durationInTraffic < 3600 ? 3 : 2;
+  if (lang === "pl") {
+    durationTextCar = humanReadableTime(destination.durationInTraffic, "pl");
+    durationTextTruck = humanReadableTime(
+      destination.durationInTraffic +
+        destination.durationInTraffic / truckDurationMultiplier,
+      "pl"
+    );
+  } else {
+    durationTextCar = humanReadableTime(destination.durationInTraffic);
+    durationTextTruck = humanReadableTime(
+      destination.durationInTraffic +
+        destination.durationInTraffic / truckDurationMultiplier
+    );
+  }
 
   return (
     <Box
@@ -122,17 +94,13 @@ const Card = ({ destination }) => {
               <Flex color={iconColor} fontSize="7xl">
                 <span className="icon-car"></span>
               </Flex>
-              <Fade in={showDurationText}>
-                <Text>{activeDurationTextCar}</Text>
-              </Fade>
+              <Text>{durationTextCar}</Text>
             </HStack>
             <HStack fontSize="6xl" fontWeight="semibold" as="h2">
               <Flex color={iconColor} fontSize="7xl">
                 <span className="icon-truck"></span>
               </Flex>
-              <Fade in={showDurationText}>
-                <Text>{activeDurationTextTruck}</Text>
-              </Fade>
+              <Text>{durationTextTruck}</Text>
             </HStack>
           </Box>
         </Flex>

@@ -46,7 +46,14 @@ const Carousel = ({ slides, alerts, destinations }) => {
             slideComponent = <Alerts alerts={alerts} />;
             break;
           case "destinations":
-            slideComponent = <Destinations destinations={destinations} />;
+            slideComponent = (
+              <Destinations destinations={destinations} lang="pl" />
+            );
+            break;
+          case "destinations_en":
+            slideComponent = (
+              <Destinations destinations={destinations} lang="en" />
+            );
             break;
           default:
             break;
@@ -59,9 +66,7 @@ const Carousel = ({ slides, alerts, destinations }) => {
             position="fixed"
             zIndex={i === activeItem ? 1 : -1}
           >
-            <SlideFade in={i === activeItem ? true : false} offsetY="50%">
-              {slideComponent}
-            </SlideFade>
+            {slideComponent}
           </Flex>
         );
       })}
