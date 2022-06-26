@@ -4,7 +4,7 @@ import { Flex, Icon } from "@chakra-ui/react";
 
 const Map = ({ alerts }) => {
   const config = {
-    mapStyle: "mapbox://styles/maciejsawinski/cl1s2ca8y001s14lj4ioeb3vr",
+    mapStyle: "mapbox://styles/maciejsawinski/cl4vevdq1004914qr7af0i81p",
     mapboxAccessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY,
     width: "100%",
     height: "100%",
